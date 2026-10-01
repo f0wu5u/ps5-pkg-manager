@@ -13,11 +13,11 @@ const pkg = (id, type, overrides = {}) => ({
   ...overrides,
 });
 
-test('item keys tell apart same-named files from different folders', () => {
-  const a = itemKey({ file: file('game.pkg'), path: 'A/game.pkg' });
-  const b = itemKey({ file: file('game.pkg'), path: 'B/game.pkg' });
-  assert.notEqual(a, b);
-  assert.equal(a, itemKey({ file: file('game.pkg'), path: 'A/game.pkg' }));
+test('item keys identify a file whichever folder it was picked through', () => {
+  const viaParent = itemKey({ file: file('game.pkg'), path: 'ABC/B/game.pkg' });
+  assert.equal(viaParent, itemKey({ file: file('game.pkg'), path: 'B/game.pkg' }));
+  // A different file with the same name in another folder is still its own package.
+  assert.notEqual(viaParent, itemKey({ file: file('game.pkg', 2048), path: 'C/game.pkg' }));
 });
 
 test('an update or DLC waiting on a listed base is queueable; otherwise blocked stays blocked', () => {

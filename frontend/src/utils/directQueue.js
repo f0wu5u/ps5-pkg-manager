@@ -4,7 +4,9 @@ const TYPE_RANK = { base: 0, update: 1, dlc: 2 };
 const LAST = Number.MAX_SAFE_INTEGER;
 
 export const typeRank = (item) => TYPE_RANK[item.details?.pkg_type] ?? 3;
-export const itemKey = ({ file, path }) => [path || file.name, file.size, file.lastModified].join('|');
+// Identifies a file by name, size and modified time, not its folder, so the same
+// file picked again through a parent or child folder is not listed twice.
+export const itemKey = ({ file }) => [file.name, file.size, file.lastModified].join('|');
 export const totalSize = (items) => items.reduce((sum, item) => sum + item.file.size, 0);
 export const isRetryable = (item) => item.status === 'failed' || item.status === 'error';
 
