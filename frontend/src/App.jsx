@@ -1,21 +1,15 @@
 import SmbFileBrowser from './components/views/SmbFileBrowser';
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
-import BlurIcon, { iconUrlFor } from './BlurIcon';
-import { formatBytes, formatEta, formatVersion } from './utils/formatters';
+import { formatVersion } from './utils/formatters';
 import { getSourceInfo } from './utils/sourceInfo';
-import { getBrowserTitle, getFullVersion, getLocalizedTitle } from './utils/title';
-import { DONATE_URL, isPlayStation, DONATE_MODAL_STORAGE_KEY, DONATE_MODAL_INTERVAL_MS, ALL_SOURCES_DRIVE } from './constants/config';
+import { getBrowserTitle, getLocalizedTitle } from './utils/title';
+import { isPlayStation, ALL_SOURCES_DRIVE } from './constants/config';
 import { checkVersion } from './api/health';
 import { getStorage } from './api/storage';
 import { getDrives } from './api/drives';
 import { getPackages, refreshPackages, getScanStatus, waitForScan, quickScan, shouldAutoScanDrive } from './api/packages';
-import { pollStatus, installPackage, cancelInstall } from './api/installer';
-import { getSettings, saveSettings, closeManager } from './api/settings';
-import { installShortcut as apiInstallShortcut } from './api/settings';
-import { getCacheStats, clearCache } from './api/cache';
-import { scanLeftovers as apiScanLeftovers, deleteLeftover } from './api/leftovers';
-import { testSmb } from './api/smb';
+import { closeManager } from './api/settings';
+import { clearCache } from './api/cache';
 
 import { useToast } from './hooks/useToast';
 import { useCache } from './hooks/useCache';
